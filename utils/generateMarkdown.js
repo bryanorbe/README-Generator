@@ -18,7 +18,7 @@
 // }
 
 function generateMarkdown(data) {
-	Return `# ${data.title}
+	return `# ${data.title}
 
     ## License:
 	[![license]('https://img.shields.io/badge/license-${data.license}-blue.svg')]]
@@ -42,8 +42,8 @@ function generateMarkdown(data) {
 	${data.contribute}
 	##Contact Information:
 	- Email: [${data.email}](mailto:${data.email})
-	- GitHub [${data.git}](https://github.com/${data.git}) ;
-`}
+	- GitHub [${data.git}](https://github.com/${data.git}) `;
+}
 
 
 module.exports = generateMarkdown;

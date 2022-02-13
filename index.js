@@ -1,65 +1,130 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
+console.log("README GENERATOR V 1.00")
 
-inquirer.prompt([
+const questions = [
 	{
 			type: 'input',
 			message: "Enter Project Title",
 			name: 'Title',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "Enter Description",
 			name: 'Description',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "How to Install",
 			name: 'Installation',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "How to Use",
 			name: 'Usage',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "Who worked on this project?",
 			name: 'Credits',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "Enter your Email address",
 			name: 'email',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
     {
 			type: 'input',
 			message: "Enter your GitHub info",
 			name: 'Git',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'input',
 			message: "How to Contribute",
 			name: 'Usage',
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Use N/A to signify none');
+                    return false;
+                }
+            }
 	},
 	{
 			type: 'checkbox',
 			name: 'license',
 			message: "Choose a license.",
 			choices: ['Apache', 'GNU', 'MIT', 'MPL 2.0', 'N/A'],
-			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
-	}
-])
+			validate: user_input => {
+                if (user_input) {
+                    return true;
+                } else {
+                    console.log('Select an Option');
+                    return false;
+                }
+            }
+	},
+]
 
-// README file function
+// README write file function
 function writeToFile(fileName, data) {
 	fs.writeFile(fileName, data, (err) => {
 		if (err) {
