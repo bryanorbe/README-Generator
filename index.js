@@ -1,52 +1,52 @@
-const inquirer = require('inuirer');
+const inquirer = require('inquirer');
 const fs = require('fs');
 
 inquirer.prompt([
 	{
 			type: 'input',
-			message= "Enter Project Title",
+			message: "Enter Project Title",
 			name: 'Title',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "Enter Description",
+			message: "Enter Description",
 			name: 'Description',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "How to Install",
+			message: "How to Install",
 			name: 'Installation',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "How to Use",
+			message: "How to Use",
 			name: 'Usage',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "Who worked on this project?",
+			message: "Who worked on this project?",
 			name: 'Credits',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "Enter your Email address",
+			message: "Enter your Email address",
 			name: 'email',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
     {
 			type: 'input',
-			message= "Enter your GitHub info",
+			message: "Enter your GitHub info",
 			name: 'Git',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
 	{
 			type: 'input',
-			message= "How to Contribute",
+			message: "How to Contribute",
 			name: 'Usage',
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	},
@@ -72,7 +72,7 @@ function writeToFile(fileName, data) {
 
 };
 
-// TODO: Create a function to initialize app
+// initialize app function
 function init () {
 	inquirer.prompt(questions)
 	.then(function (userInput) {
@@ -81,5 +81,6 @@ function init () {
 	});
 };
 
-// Function call to initialize app
+// call initialize app
+
 init();
