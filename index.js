@@ -57,13 +57,29 @@ inquirer.prompt([
 			choices: ['Apache', 'GNU', 'MIT', 'MPL 2.0', 'N/A'],
 			validate: (value) => { if(value){return true} else {return "Cannot be blank"}}
 	}
-]
+])
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// README file function
+function writeToFile(fileName, data) {
+	fs.writeFile(fileName, data, (err) => {
+		if (err) {
+			return console.log(err);
+		}
+
+	console.log("Successfully generated README");
+	
+	});
+
+};
 
 // TODO: Create a function to initialize app
-function init() {}
+function init () {
+	inquirer.prompt(questions)
+	.then(function (userInput) {
+		console.log(userInput)
+		writeToFile("README.md", generateMarkdown(userInput));
+	});
+};
 
 // Function call to initialize app
 init();
