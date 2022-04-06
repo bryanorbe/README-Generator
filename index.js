@@ -1,151 +1,67 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Choices = require('inquirer/lib/objects/choices');
 const generateMarkdown = require('./utils/generateMarkdown');
-console.log("README GENERATOR V 1.00")
 
-const questions = [
-	{
-			type: 'input',
-			message: "Enter Project Title",
-			name: 'Title',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "Enter Description",
-			name: 'Description',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "How to Install",
-			name: 'Installation',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "How to Use",
-			name: 'Usage',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "Who worked on this project?",
-			name: 'Credits',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "Enter your Email address",
-			name: 'email',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-    {
-			type: 'input',
-			message: "Enter your GitHub info",
-			name: 'Git',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'input',
-			message: "How to Contribute",
-			name: 'Usage',
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Use N/A to signify none');
-                    return false;
-                }
-            }
-	},
-	{
-			type: 'checkbox',
-			name: 'license',
-			message: "Choose a license.",
-			choices: ['Apache', 'GNU', 'MIT', 'MPL 2.0', 'N/A'],
-			validate: user_input => {
-                if (user_input) {
-                    return true;
-                } else {
-                    console.log('Select an Option');
-                    return false;
-                }
-            }
-	},
-]
 
-// README write file function
+// function to write README file
 function writeToFile(fileName, data) {
-	fs.writeFile(fileName, data, (err) => {
-		if (err) {
-			return console.log(err);
-		}
-
-	console.log("Successfully generated README");
-	
-	});
-
+    fs.writeFile(fileName, generateMarkdown(data), (err) =>
+        err ? console.error(err) : console.log('Success!')
+    );
 };
 
-// initialize app function
-function init () {
-	inquirer.prompt(questions)
-	.then(function (userInput) {
-		console.log(userInput)
-		writeToFile("README.md", generateMarkdown(userInput));
-	});
-};
-
-// call initialize app
-
-init();
+inquirer
+    .prompt([
+        {
+            type: 'input',
+            message: 'Enter Project Title.',
+            name: 'appTitle', 
+        }, {
+			type: 'input',
+			message: 'Enter Project Description.',
+			name: 'appDesc', 
+		}, {
+            type: 'input',
+            message: 'Enter Installation Instructions.',
+            name: 'appInstall',
+        }, {
+            type: 'input',
+            message: 'Enter Usage Instructions.',
+            name: 'appUsage',
+        }, {
+            type: 'input',
+            message: 'Enter Email Address.',
+            name: 'devEmail',
+        }, {
+            type: 'input',
+            message: 'Enter Github Username.',
+            name: 'devGitHub',
+        }, {
+            type: 'list',
+            message: 'Select License.',
+            name: 'appLicense',
+            choices: ['GNU AGPLv3', 'GNU GPL v3', 'GNU LGPL v3', 'Mozilla Public License 2.0',
+                'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
+        },
+    ])
+    .then((data) => {
+        if (data.appLicense === 'GNU AGPL v3') {
+            data.appLicenseBadge = `[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)`
+        } else if (data.appLicense === 'GNU GPL v3') {
+            data.appLicenseBadge = '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)'
+        } else if (data.appLicense === 'GNU LGPL v3') {
+            data.appLicenseBadge = '[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)'
+        } else if (data.appLicense === 'Mozilla Public License 2.0') {
+            data.appLicenseBadge = '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)'
+        } else if (data.appLicense === 'Apache License 2.0') {
+            data.appLicenseBadge = '[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
+        } else if (data.appLicense === 'MIT License') {
+            data.appLicenseBadge = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+        } else if (data.appLicense === 'Boost Software License 1.0') {
+            data.appLicenseBadge = '[![License](https://img.shields.io/badge/License-Boost%201.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)'
+        } else {
+            data.appLicenseBadge = '[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)'
+        };
+        writeToFile('sampleREADME.md', data);
+    });

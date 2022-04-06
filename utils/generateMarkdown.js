@@ -1,49 +1,39 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-// function renderLicenseBadge(license) {}
-
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-// function renderLicenseLink(license) {}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-// function renderLicenseSection(license) {}
-
-// TODO: Create a function to generate markdown for README
-// function generateMarkdown(data) {
-//   return `# ${data.title}
-
-// `;
-// }
-
+// function to generate markdown for README
 function generateMarkdown(data) {
-	return `# ${data.title}
 
-    ## License:
-	[![license]('https://img.shields.io/badge/license-${data.license}-blue.svg')]]
+	return `# ${data.appTitle}
+  
+	${data.appLicenseBadge}
+  
 	## Table of Contents
-	- [Description](#description)
-	- [Installation](#installation)
-	- [Usage](#usage)
-	- [Credits](#credits)
-	- [Contributions](#contribution)
-	- [Contact Information](#contact)
-
-	## Description:
-	${data.description}
-	## Installation:
-	${data.installation}
-	##Usage:
-	${data.usage}
-	##Credits:
-	${data.credits}
-	##Contributions:
-	${data.contribute}
-	##Contact Information:
-	- Email: [${data.email}](mailto:${data.email})
-	- GitHub [${data.git}](https://github.com/${data.git}) `;
-}
-
-
-module.exports = generateMarkdown;
+	* [Description](#description)
+	* [Installation](#installation)
+	* [Usage](#usage)
+	* [Tests](#tests)
+	* [Technologies-Used](#technologies-used)
+	* [Questions](#questions)
+	* [Contributions](#contributions)
+	* [License](#license)
+  
+	## Description
+	${data.appDesc}
+  
+	## Installation
+	${data.appInstall}
+  
+	## Usage
+	${data.appUsage}
+  
+	## Contact
+	  
+	If you have any questions you can reach me at ${data.devEmail} or via my GitHub [${data.devGitHub}](https://github.com/${data.devGitHub}).
+  
+	## Contributions
+	For any contributionns you can reach me at ${data.devEmail} or via my GitHub [${data.devGitHub}](https://github.com/${data.devGitHub}).
+  
+	## License
+	Licensed under ${data.appLicense} license.
+  `;
+  };
+  
+  module.exports = generateMarkdown;
